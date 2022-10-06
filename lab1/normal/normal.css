@@ -1,0 +1,30 @@
+body {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+body div {
+  display: flex;
+}
+
+body div div {
+  width: 50%;
+  flex-wrap: wrap;
+}
+
+#add-input {
+  font-size: 24px;
+}
+
+#result-container {
+  margin: 0 0 15px 10px;
+  padding: 20px;
+  width: 300px;
+}
+
+#left-side-input-container {
+  width: 300px;
+}
