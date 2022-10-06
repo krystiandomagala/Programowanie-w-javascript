@@ -1,0 +1,11 @@
+
+div{
+    display: flex;
+    flex-direction: column;
+}
+
+input{
+    width: 150px;
+    margin: 10px 0;
+    padding: 2px;
+}
