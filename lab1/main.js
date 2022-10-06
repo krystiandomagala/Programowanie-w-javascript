@@ -18,8 +18,8 @@ przeliczBtn.addEventListener('click', ()=>{
 
     sumResult.value = sum(inputValues);
     avgResult.value = avg(inputValues);
-    minResult.value = Math.min(parseInt(inputValues));
-    maxResult.value = Math.max(parseInt(inputValues));
+    minResult.value = Math.min(...inputValues);
+    maxResult.value = Math.max(...inputValues);
 })
 
 function sum(inputValues){
