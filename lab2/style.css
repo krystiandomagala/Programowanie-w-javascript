@@ -212,6 +212,18 @@ img, video{
   object-position: bottom;
 }
 
+.top{
+  object-position: top;
+}
+
+.center{
+  object-position: center;
+}
+
+.brighter-brown{
+  color:  rgb(216, 206, 200)!important;
+}
+
 .bright-brown{
   color:  rgb(177, 161, 151)!important;
 }
