@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Drumkit</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <link href="style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+  <body>
+    <div id="audio-container">
+      <audio src="./sounds/boom.wav" controls id="boom" class="key"></audio>
+      <audio src="./sounds/clap.wav" controls id="clap" class="key"></audio>
+      <audio src="./sounds/hihat.wav" controls id="hihat" class="key"></audio>
+      <audio src="./sounds/kick.wav" controls id="kick" class="key"></audio>
+      <audio src="./sounds/openhat.wav" controls id="openhat" class="key"></audio>
+      <audio src="./sounds/ride.wav" controls id="ride" class="key"></audio>
+      <audio src="./sounds/snare.wav" controls id="snare" class="key"></audio>
+      <audio src="./sounds/tink.wav" controls id="tink" class="key"></audio>
+      <audio src="./sounds/tom.wav" controls id="tom" class="key"></audio>
+    </div>
+
+    <div id="soundboard-container">
+      <div class="sound-list">
+        <button type="button" class="btn btn-primary sound-btn" id="boom-btn">Boom<span class="d-block h6">[1]</span></button>
+        <button type="button" class="btn btn-primary sound-btn" id="clap-btn">Clap<span class="d-block h6">[2]</span></button>
+        <button type="button" class="btn btn-primary sound-btn" id="hihat-btn">
+          Hihat<span class="d-block h6">[3]</span>
+        </button>
+        <button type="button" class="btn btn-primary sound-btn" id="kick-btn">Kick<span class="d-block h6">[4]</span></button>
+        <button type="button" class="btn btn-primary sound-btn" id="openhat-btn">
+          Openhat<span class="d-block h6">[5]</span>
+        </button>
+        <button type="button" class="btn btn-primary sound-btn" id="ride-btn">Ride<span class="d-block h6">[6]</span></button>
+        <button type="button" class="btn btn-primary sound-btn" id="snare-btn">
+          Snare<span class="d-block h6">[7]</span>
+        </button>
+        <button type="button" class="btn btn-primary sound-btn" id="tink-btn">Tink<span class="d-block h6">[8]</span></button>
+        <button type="button" class="btn btn-primary sound-btn" id="tom-btn">Tom<span class="d-block h6">[9]</span></button>
+      </div>
+      <div id="control-container">
+        <button type="button" class="btn btn-danger sound-btn" id="record">Record <span class="d-block h6">[R]</span></button>
+        <div class="counter h3">
+            <label id="minutes">00</label> :
+            <label id="seconds">00</label> :
+            <label id="miliseconds">00</label>
+        </div>
+        <div class="metronome-container mt-4">
+          
+          <div>
+            <h5 class="text-secondary mb-0">Beats per minute</h5>
+            <h3 id="tempo">100</h3>
+          </div>
+
+          <div class="d-flex justify-content-between w-100">
+            <span class="h2 text-secondary">-</span>
+            <span class="h2 text-secondary">+</span>
+          </div>
+          <input type="range" min="40" max="230" value="100" id="metronome-value">
+          <button class="btn btn-primary sound-btn mt-2 p-3" id="play-button">
+            <div id="play-pause-icon" class="play">
+            </div>
+          </button>
+        </div>
+    </div>
+      <div class="audio-path-container">
+        <h4>Select audio path and press <span class="badge badge-danger">Record</span></h4>
+        <div class="audio-path audio-selected">
+            <h5>Audio 1</h5>
+            <button type="button" class="btn btn-success audioPlay">Play</button>
+            <button type="button" class="btn btn-danger audioClear">Clear</button>
+        </div>
+        <div class="audio-path">
+            <h5>Audio 2</h5>
+            <button type="button" class="btn btn-success audioPlay">Play</button>
+            <button type="button" class="btn btn-danger audioClear">Clear</button>
+        </div>
+        <div class="audio-path">
+            <h5>Audio 3</h5>
+            <button type="button" class="btn btn-success audioPlay">Play</button>
+            <button type="button" class="btn btn-danger audioClear">Clear</button>
+        </div>
+        <div class="audio-path">
+            <h5>Audio 4</h5>
+            <button type="button" class="btn btn-success audioPlay">Play</button>
+            <button type="button" class="btn btn-danger audioClear">Clear</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="metronome.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,103 @@
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
+  user-select: none;
+}
+
+#audio-container {
+  display: none;
+}
+
+#soundboard-container {
+  background-color: #ddd;
+  width: 1000px;
+  padding: 50px;
+  height: 1000px;
+  border-radius: 25px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  grid-gap: 50px;
+}
+
+#control-container{
+    display: flex;
+    flex-direction: column;
+    grid-row: 1/3;
+    grid-column: 2/3;
+}
+
+.sound-list {
+  display: grid;
+  gap: 15px;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+}
+
+.sound-btn {
+  border-radius: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+.active {
+  background-color: #004ea2 !important;
+}
+
+.audio-path{
+    border-radius: 20px;
+    background-color: #bbb;
+    padding: 20px;
+    margin: 20px 0;
+    transition: outline 0.2s;
+    outline: 2px solid transparent;
+    cursor: pointer;
+}
+
+.audio-path:hover{
+    outline: 2px solid rgb(136, 136, 136);
+}
+
+.audio-selected{
+    background-color: #95bbe4 !important;
+
+}
+
+.audio-selected:hover{
+    outline: 2px solid #5f99d7;
+}
+
+.counter{
+    margin-top: 15px;
+}
+
+#metronome-value{
+  width: 100%;
+}
+
+.metronome-container{
+  background-color: #ccc;
+  padding: 20px;
+  border-radius: 15px;
+}
+
+.play {
+  width: 0;
+  height: 0;
+  border-top: 12px solid transparent;
+  border-bottom: 12px solid transparent;
+  border-left: 20px solid #e9e9e9;
+  margin-left: 5px;
+}
+
+.pause {
+  width: 25px;
+  height: 24px;
+  border: none;
+  border-left: 7px solid #e9e9e9;
+  border-right: 7px solid #e9e9e9;
+}
