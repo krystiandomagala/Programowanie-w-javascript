@@ -1,4 +1,3 @@
-
 let AUDIO_1 = AUDIO_2 = AUDIO_3 = AUDIO_4 = [];
 let recordingStartTime, songNotes, totalMiliseconds, i;
 
@@ -77,7 +76,7 @@ audioPaths.forEach((audioPath) => {
 });
 
 function selectPath(el) {
-  if(isRecording()) return;
+  if (isRecording()) return;
   audioPaths.forEach((audioPath) => {
     if (audioPath.classList.contains("audio-selected"))
       audioPath.classList.remove("audio-selected");
@@ -135,46 +134,82 @@ function saveSong() {
   let btnId = button.id;
   console.log(btnId);
   switch (btnId) {
-    case "play1": AUDIO_1 = songNotes;
+    case "play1":
+      AUDIO_1 = songNotes;
       break;
-    case "play2": AUDIO_2 = songNotes;
+    case "play2":
+      AUDIO_2 = songNotes;
       break;
-    case "play3": AUDIO_3 = songNotes;
-    break;
-    case "play4": AUDIO_4 = songNotes;
-    break;
+    case "play3":
+      AUDIO_3 = songNotes;
+      break;
+    case "play4":
+      AUDIO_4 = songNotes;
+      break;
   }
 }
 
 let audioPlayBtns = document.querySelectorAll(".audioPlay");
 
-audioPlayBtns.forEach(playBtn => {
+audioPlayBtns.forEach((playBtn) => {
   playBtn.addEventListener("click", () => playSavedSound(playBtn));
 });
 
 
 
+let interval;
 
-function playSavedSound(el){
+function playSavedSound(el) {
 
-  if(el.classList.contains)
 
-  el.classList.add("playingSong");
+  if (el.id == "play1") {
+    if (el.classList.contains("playingSong")) {
+      el.classList.remove("playingSong");
+      clearInterval(interval);
+      return;
+    }
 
-  if(el.id == "play1")
-  {
-
-    console.log(AUDIO_1[AUDIO_1.length-1].startTime)
-    setInterval(() => {
-      playSong(AUDIO_1)
-    }, AUDIO_1[AUDIO_1.length - 1].startTime)
+    el.classList.add("playingSong");
+    interval = setInterval(() => {playSong(AUDIO_1)}, AUDIO_1[AUDIO_1.length - 1].startTime);
   }
-  if(el.id == "play2")
-    playSong(AUDIO_2);
-  if(el.id == "play3")
-    playSong(AUDIO_3);
-  if(el.id == "play4")
-    playSong(AUDIO_4);
+  if (el.id == "play2") {
+
+    if (el.classList.contains("playingSong")) {
+      el.classList.remove("playingSong");
+      clearInterval(interval);
+      return;
+    }
+
+    el.classList.add("playingSong");
+
+    interval = setInterval(() => {
+      playSong(AUDIO_2);
+    }, AUDIO_2[AUDIO_2.length - 1].startTime);
+  }
+  if (el.id == "play3") {
+    if (el.classList.contains("playingSong")) {
+      el.classList.remove("playingSong");
+      clearInterval(interval);
+      return;
+    }
+    el.classList.add("playingSong");
+
+    interval = setInterval(() => {
+      playSong(AUDIO_3);
+    }, AUDIO_3[AUDIO_3.length - 1].startTime);
+  }
+  if (el.id == "play4") {
+    if (el.classList.contains("playingSong")) {
+      el.classList.remove("playingSong");
+      clearInterval(interval);
+      return;
+    }
+    el.classList.add("playingSong");
+
+    interval = setInterval(() => {
+      playSong(AUDIO_4);
+    }, AUDIO_4[AUDIO_4.length - 1].startTime);
+  }
 }
 
 function recordNote(note) {
