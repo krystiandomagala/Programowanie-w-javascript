@@ -1,0 +1,15 @@
+.note-creator{
+    width: 400px;
+    background-color: #eee;
+    border-radius: 15px;
+}
+
+.note-creator label{
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+#color{
+    width: 80px;
+}

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <title>Document</title>
+  </head>
+  <body class="bg-light">
+    <div class="upper-bar border-bottom p-4 navbar">
+      <h2>Notatki</h2>
+
+      <form class="form-inline my-2 my-lg-0">
+        <input
+          class="form-control mr-sm-2"
+          type="search"
+          placeholder="Search"
+          aria-label="Search"
+        />
+      </form>
+    </div>
+    <div class="p-4 w-100">
+      <button type="button" class="btn btn-outline-primary btn-lg px-4">
+        + Add note
+      </button>
+
+      <div class="note-creator my-4 border rounded p-4">
+        <div class="form-group my-3">
+          <label for="title"> Title </label>
+          <input
+            type="text"
+            class="form-control"
+            id="title"
+            placeholder="Enter title"
+          />
+        </div>
+
+        <div class="form-group my-3">
+          <label for="content"> Content </label>
+          <input
+            type="text"
+            class="form-control"
+            id="content"
+            placeholder="Enter content"
+          />
+        </div>
+
+        <div class="form-group my-3">
+          <label for="color"> Color </label>
+          <input
+            type="color"
+            class="form-control"
+            id="color"
+            placeholder="Enter title"
+            list="preset"
+          />
+          <datalist id="preset">
+            <option>#ffb3ba</option>
+            <option>#ffdfba</option>
+            <option>#ffffba</option>
+            <option>#baffc9</option>
+            <option>#bae1ff</option>
+          </datalist>
+        </div>
+
+        <button type="button" class="btn btn-success px-4">
+            Create
+          </button>
+      </div>
+    </div>
+    <div class="note-container">
+      <div class="pinned-notes"></div>
+      <div class="unpinned-notes"></div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
