@@ -1,15 +1,250 @@
-.note-creator{
-    width: 400px;
-    background-color: #eee;
-    border-radius: 15px;
+body{
+    background-color: #88ABFF;
 }
 
-.note-creator label{
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+.wrapper{
+    margin: 50px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 265px);
+    gap: 25px;
+}
+
+.tags{
+    margin-bottom: 10px;
+    font-size: 12px;
+    color:#73a5d8;
+}
+
+.wrapper li{
+    height: 290px;
+    border-radius: 5px;
+    list-style: none;
+    background-color: #fff;
+    padding: 15px 20px 20px;
+}
+
+.add-box, .icon, .bottom-content, .settings .menu li,  .popup, header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.add-box{
+    justify-content: center;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.add-box .icon{
+    border: 2px dashed;
+    color:  #88ABFF;
+    height: 78px;
+    width: 78px;
+    border-radius: 50%;
+    font-size: 40px;
+    justify-content: center;
+}
+
+.add-box p{
+    color:  #88ABFF;
+    font-weight: 600;
+    margin-top: 20px;
+}
+
+.wrapper .note{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.note p{
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.details p{
+    margin-bottom: 10px;
+}
+
+.details{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.details span{
+    flex-grow: 1;
+}
+
+.note span{
+    color: #575757;
+    font-size: 16px;
+    display: block;
+    margin-top: 5px;
+}
+
+.note .bottom-content{
+    border-top: 1px solid #ccc;
+    padding-top: 10px;
+}
+
+.bottom-content span{
+    color: #6d6d6d;
+    font-size: 14px;
+}
+
+.bottom-content .settings i{
+    color: #6d6d6d;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.settings{
+    position: relative;
+}
+
+.settings .menu{
+    box-shadow: 0 0 6px rgba(0,0,0,0.15);
+    position: absolute;
+    bottom: 0;
+    right: -5px;
+    padding: 5px 0;
+    background-color: #fff;
+    border-radius: 4px;
+    transform: scale(0);
+    transition: transform 0.2s ease;
+    transform-origin: bottom right;
+}
+
+.settings.show .menu{
+    transform: scale(1);
+}
+
+.settings .menu li{
+    height: 25px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 0;
+    padding: 17px 15px;
+    justify-content: flex-start;
+}
+
+.menu li:hover{
+    background-color: #f5f5f5;
+}
+
+.menu li i{
+    padding-right: 8px;
+}
+
+.popup-box{
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 2;
+    background-color: rgba(0,0,0,0.4);
+}
+.popup-box, .popup-box .popup{
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.25s ease;
+}
+
+.popup-box.show, .popup-box.show .popup{
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.popup-box .popup{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 3;
+    max-width: 400px;
+    width: 100%;
+    transform: translate(-50%,-50%);
+    justify-content: center;
+}
+
+.popup .content{
+    width: calc(100% -  15px);
+    background: #fff;
+    border-radius: 5px;
+}
+
+.popup .content header{
+    padding: 15px 25px;
+    border-bottom: 1px solid #ccc;
+}
+
+.content header p{
+    font-size: 20px;
+    font-weight: 600px;
+}
+
+.content header i{
+    color:#8b8989;
+    cursor: pointer;
+    font-size: 23px;
+}
+
+.content form{
+    margin: 15px 25px 35px;
+}
+
+.content form .row{
+    margin-bottom: 20px;
+    color:#575757;
+}
+
+form .row label{
+    display: block;
     font-size: 18px;
-    font-weight: 500;
-    margin-bottom: 5px;
+    margin-bottom: 6px;
 }
 
-#color{
-    width: 80px;
+.content form :where(input,textarea){
+    width: 100%;
+    outline: none;
+    height: 50px;
+    font-size: 17px;
+    padding: 0 15px;
+    border-radius: 4px;
+    border: 1px solid #999;
+}
+
+.content form textarea{
+    height: 150px;
+    resize: none;
+    padding: 8px 15px;
+}
+
+.content form .tags textarea{
+    height: 75px;
+    text-transform: lowercase;
+}
+
+.content form button{
+    width: 100%;
+    height: 50px;
+    background: #88ABFF;
+    border:  none;
+    outline: none;
+    color: #fff;
+    font-size: 17px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.content form button:hover{
+    background: #9fbcff;
 }

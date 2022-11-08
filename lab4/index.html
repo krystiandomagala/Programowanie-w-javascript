@@ -4,81 +4,86 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
-      crossorigin="anonymous"
-    />
     <link rel="stylesheet" href="style.css" />
-    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dosis&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <title>Notes</title>
   </head>
-  <body class="bg-light">
-    <div class="upper-bar border-bottom p-4 navbar">
-      <h2>Notatki</h2>
+  <body>
+    
+    <div class="popup-box">
+      <div class="popup">
+        <div class="content">
+          <header>
+            <p>Add a new Note</p>
+            <i class="uil uil-times">
 
-      <form class="form-inline my-2 my-lg-0">
-        <input
-          class="form-control mr-sm-2"
-          type="search"
-          placeholder="Search"
-          aria-label="Search"
-        />
-      </form>
-    </div>
-    <div class="p-4 w-100">
-      <button type="button" class="btn btn-outline-primary btn-lg px-4">
-        + Add note
-      </button>
+            </i>
+          </header>
+          <form action="#">
+            <div class="row title">
+              <label>Title<span style="color: red">*</span></label>
+              <input type="text">
+            </div>
+            
+            <div class="row description">
+              <label>Description</label>
+              <textarea></textarea>
+            </div>
 
-      <div class="note-creator my-4 border rounded p-4">
-        <div class="form-group my-3">
-          <label for="title"> Title </label>
-          <input
-            type="text"
-            class="form-control"
-            id="title"
-            placeholder="Enter title"
-          />
+            <div class="row tags">
+              <label>Tags</label>
+              <textarea></textarea>
+            </div>
+            
+            <div class="row date">
+              <label>Date<span style="color: red">*</span></label>
+              <input type="datetime-local" required> 
+            </div>
+
+            <button>Add Note</button>
+          </form>
         </div>
-
-        <div class="form-group my-3">
-          <label for="content"> Content </label>
-          <input
-            type="text"
-            class="form-control"
-            id="content"
-            placeholder="Enter content"
-          />
-        </div>
-
-        <div class="form-group my-3">
-          <label for="color"> Color </label>
-          <input
-            type="color"
-            class="form-control"
-            id="color"
-            placeholder="Enter title"
-            list="preset"
-          />
-          <datalist id="preset">
-            <option>#ffb3ba</option>
-            <option>#ffdfba</option>
-            <option>#ffffba</option>
-            <option>#baffc9</option>
-            <option>#bae1ff</option>
-          </datalist>
-        </div>
-
-        <button type="button" class="btn btn-success px-4">
-            Create
-          </button>
       </div>
     </div>
-    <div class="note-container">
-      <div class="pinned-notes"></div>
-      <div class="unpinned-notes"></div>
+    
+    <div class="wrapper">
+
+      <li class="add-box">
+        <div class="icon">
+          <i class="uil uil-plus"></i>
+        </div>
+        <p>Add new note</p>
+      </li>
+      
+      <li class="note">
+        
+        <div class="details">
+          <p>This is a title</p>
+          <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde nemo hic sequi vitae asperiores ut odio sint rerum, eius nihil quos voluptas perspiciatis eveniet culpa error nisi, omnis aliquid! Doloribus.</span>
+          <div class="tags">#note #lorem #ipsum #dolor #sit #amet #consectetur</div>
+        </div>
+        
+        <div class="bottom-content">
+          <span>April 3, 2022</span>
+          <div class="settings">
+            <i class="uil uil-ellipsis-h"></i>
+            <ul class="menu">
+              <li><i class="uil uil-pen"></i>Edit</li>
+              <li><i class="uil uil-trash"></i>Delete</li>
+            </ul>
+          </div>
+        </div>
+      
+      </li>
+    
     </div>
+    
     <script src="script.js"></script>
   </body>
 </html>
