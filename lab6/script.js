@@ -13,7 +13,7 @@ const maxY = garden.clientHeight - ball.clientHeight;
 
 function onDeviceMove(event) {
 
-    if (window.innerHeight > window.innerWidth)
+    if (window.innerHeight < window.innerWidth)
         document.getElementsByTagName('body')[0].style.transform = "rotate(90deg)";
 
     console.log(event)
