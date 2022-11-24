@@ -6,9 +6,9 @@ let gamma = document.querySelector("#gamma");
 
 function onDeviceMove(event) {
     console.log(event)
-    alpha.innerHTML = event.alpha;
-    beta.innerHTML = event.beta;
-    gamma.innerHTML = event.gamma;
+    alpha.innerHTML = (event.alpha).toFixed(2);
+    beta.innerHTML = (event.beta).toFixed(2);
+    gamma.innerHTML = (event.gamma).toFixed(2);
 }
 
 
