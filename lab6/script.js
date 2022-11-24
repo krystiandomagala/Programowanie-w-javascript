@@ -11,9 +11,7 @@ function onDeviceMove(event) {
     gamma.innerHTML = event.gamma;
 }
 
-if ( location.protocol != "http:" ) {
-    location.href = "http:" + window.location.href.substring( window.location.protocol.length );
-    }
+
     function permission () {
         if ( typeof( DeviceMotionEvent ) !== "undefined" && typeof( DeviceMotionEvent.requestPermission ) === "function" ) {
             // (optional) Do something before API request prompt.
