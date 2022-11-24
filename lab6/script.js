@@ -12,22 +12,22 @@ function onDeviceMove(event) {
 }
 
 
-    function permission () {
-        if ( typeof( DeviceMotionEvent ) !== "undefined" && typeof( DeviceMotionEvent.requestPermission ) === "function" ) {
-            // (optional) Do something before API request prompt.
-            DeviceMotionEvent.requestPermission()
-                .then( response => {
-                // (optional) Do something after API prompt dismissed.
-                if ( response == "granted" ) {
-                    window.addEventListener( "devicemotion", (e) => {
-                        // do something for 'e' here.
-                    })
-                }
-            })
-                .catch( console.error )
-        } else {
-            alert( "DeviceMotionEvent is not defined" );
-        }
+function permission() {
+    if (typeof DeviceMotionEvent.requestPermission === 'function') {
+      // Handle iOS 13+ devices.
+      DeviceMotionEvent.requestPermission()
+        .then((state) => {
+          if (state === 'granted') {
+            window.addEventListener('devicemotion', onDeviceMove);
+          } else {
+            console.error('Request to access the orientation was rejected');
+          }
+        })
+        .catch(console.error);
+    } else {
+      // Handle regular non iOS 13+ devices.
+      window.addEventListener('devicemotion', onDeviceMove);
     }
+  }
     const btn = document.getElementById( "request" );
     btn.addEventListener( "click", permission );
