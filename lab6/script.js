@@ -41,16 +41,15 @@ function initializeGame() {
   console.log("maxY:" + MaxY);
   console.log("maxX:" + MaxX);
 
-  //setting position
+  // setting position
   const holeX = holeContainer.style.left = `${getRandomCoordinate(18, MaxX)}px`;
   const holeY = holeContainer.style.top = `${getRandomCoordinate(158, MaxY)}px`;
-
-  const ballX = ballContainer.getBoundingClientRect().left + 'px';
-  const ballY = ballContainer.getBoundingClientRect().top + 'px';
-  
   hole.x = holeX;
   hole.y = holeY;
 
+
+  const ballX = ballContainer.getBoundingClientRect().left + 'px';
+  const ballY = ballContainer.getBoundingClientRect().top + 'px';
   ball.x = ballX;
   ball.y = ballY;
 
