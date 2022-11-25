@@ -1,24 +1,68 @@
+body {
+  background-color: #121212;
+  font-size: 20px;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100vw;
+  height: 100vh;
+  font-family: 'Press Start 2P', cursive;
+  display: flex;
+  flex-direction: column;
 
-body{
-    margin: 20px;
-    background-color: #eee;
-    font-size: 20px;
 }
 
-.garden {
-    position: relative;
-    width: 200px;
-    height: 200px;
-    border: 5px solid #ccc;
-    border-radius: 10px;
-  }
-  
-  .ball {
-    position: absolute;
-    top: 90px;
-    left: 90px;
-    width: 20px;
-    height: 20px;
-    background: green;
-    border-radius: 100%;
-  }
+.game-field {
+  margin: 10px;
+  height: 100%;
+  border: 8px solid #fff;
+}
+
+#ball {
+  position: absolute;
+  display: none;
+  width: 50px;
+  height: 50px;
+  background: rgb(0, 255, 0);
+  left: calc(50% - 25px);
+  top: calc(50% + 50px);
+  z-index: 1;
+}
+
+.hole {
+  position: absolute;
+  display: none;
+  width: 65px;
+  height: 65px;
+  background: #3b3b3b;
+  z-index: 0;
+  top: 158px;
+}
+
+#request {
+  position: relative;
+  left: calc(50% - 85px);
+  top: calc(50% - 40px);
+  width: 170px;
+  height: 80px;
+  font-size: 18px;
+  color: #fff;
+  font-family: inherit;
+  background-color: transparent;
+  border: #fff 8px solid;
+  z-index: 2;
+}
+
+#request:hover{
+    border-color: rgb(0, 255, 0);
+    color:rgb(0, 255, 0);
+    cursor: pointer;
+}
+
+.positions {
+  margin: 20px 10px;
+  color: white;
+}
+.positions div{
+    margin: 10px 0;
+}

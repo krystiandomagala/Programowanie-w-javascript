@@ -1,30 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>
-        Ball in the hole
-    </title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <button id="request">Request</button>
-    <div>
-        alpha: <span id="alpha"></span>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ball in the hole</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <div class="positions">
+      <div>alpha: <span id="alpha">0</span></div>
+      <div>beta: <span id="beta">0</span></div>
+      <div>gamma: <span id="gamma">0</span></div>
     </div>
-    <div>
-        beta: <span id="beta"></span>
+    <div class="game-field">
+      <div id="ball"></div>
+      <div class="hole"></div>
+      <button id="request">Start</button>
     </div>
-    <div>
-        gamma: <span id="gamma"></span>
-    </div>
-
-    <div class="garden">
-        <div class="ball"></div>
-      </div>
 
     <script src="script.js"></script>
-</body>
+  </body>
 </html>
