@@ -78,11 +78,11 @@ function moveTheBall() {
   let ballX = ball.style.left.slice(0, -2);
   let ballY = ball.style.top.slice(0, -2);
 
-  if (x < 0) ballX--;
-  if (y < 0) ballY--;
+  if (x < 5) ballX--;
+  if (y < 5) ballY--;
 
-  if (x > 0) ballX++;
-  if (y > 0) ballY++;
+  if (x > 5) ballX++;
+  if (y > 5) ballY++;
 
   if(ballX>0 && ballX<maxX)
     ball.style.left = `${ballX}px`;
