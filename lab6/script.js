@@ -103,11 +103,11 @@ function moveTheBall() {
   ballPosition.x = ball.style.left.slice(0, -2);
   ballPosition.y = ball.style.top.slice(0, -2);
 
-  if (x < 0) ballPosition.x = parseFloat(ballPosition.x) + accelerationX;
-  if (y < 0) ballPosition.y = parseFloat(ballPosition.y) + accelerationY;
+  if (x < initialX) ballPosition.x = parseFloat(ballPosition.x) + accelerationX;
+  if (y < initialY) ballPosition.y = parseFloat(ballPosition.y) + accelerationY;
 
-  if (x > 0) ballPosition.x = parseFloat(ballPosition.x) + accelerationX;
-  if (y > 0) ballPosition.y = parseFloat(ballPosition.y) + accelerationY;
+  if (x > initialX) ballPosition.x = parseFloat(ballPosition.x) + accelerationX;
+  if (y > initialY) ballPosition.y = parseFloat(ballPosition.y) + accelerationY;
 
   if (ballPosition.x > 0 && ballPosition.x < maxX)
     ball.style.left = `${ballPosition.x}px`;
