@@ -30,6 +30,15 @@ function onDeviceMove(event) {
 
   x = Math.round(event.gamma);
   y = Math.round(event.beta);
+
+  if (x > 90) {
+    x = 90;
+  }
+  if (x < -90) {
+    x = -90;
+  }
+  x += 90;
+  y += 90;
 }
 
 const gameField = document.querySelector(".game-field");
@@ -78,16 +87,16 @@ function moveTheBall() {
   let ballX = ball.style.left.slice(0, -2);
   let ballY = ball.style.top.slice(0, -2);
 
-  if (x < 5) ballX--;
-  if (y < 5) ballY--;
+  if (x < 0) ballX--;
+  if (y < 0) ballY--;
 
-  if (x > 5) ballX++;
-  if (y > 5) ballY++;
+  if (x > 0) ballX++;
+  if (y > 0) ballY++;
 
   if(ballX>0 && ballX<maxX)
-    ball.style.left = `${ballX}px`;
+    ball.style.left = `${(maxX * x) / 180 - 25 }px`;
   if(ballY>0 && ballY<maxY)
-    ball.style.top = `${ballY}px`;
+    ball.style.top = `${(maxY * y) / 180 - 25}px`;
 
 
 }
