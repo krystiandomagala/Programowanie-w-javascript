@@ -84,10 +84,10 @@ function moveTheBall() {
   if (x > 0) ballX++;
   if (y > 0) ballY++;
 
-  console.log(ballX);
-
   if(ballX>0 && ballX<maxX)
     ball.style.left = `${ballX}px`;
   if(ballY>0 && ballY<maxY)
     ball.style.top = `${ballY}px`;
+
+
 }
