@@ -1,4 +1,7 @@
-// Request mobile user
+const GAME_TIME = 60000;
+
+// requesting mobile user
+
 const btn = document.getElementById("request");
 btn.addEventListener("click", getPermission);
 
@@ -9,7 +12,7 @@ function getPermission() {
       .then((state) => {
         if (state === "granted") {
           window.addEventListener("deviceorientation", onDeviceMove);
-          setUpTheField();
+          startGame();
         } else {
           console.error("Request to access the orientation was rejected");
         }
@@ -18,13 +21,15 @@ function getPermission() {
   } else {
     // Handle regular non iOS 13+ devices.
     window.addEventListener("deviceorientation", onDeviceMove);
-    setUpTheField();
+    startGame();
   }
 }
 
-let x, y;
-let maxX, maxY;
-let accelerationX, accelerationY;
+// collecting device position
+// counting ball acceleration
+
+let x, y, accelerationX, accelerationY;
+const GRAVITY = 8;
 
 function onDeviceMove(event) {
   console.log(`(x: ${event.gamma}, y: ${event.beta})`);
@@ -32,75 +37,119 @@ function onDeviceMove(event) {
   x = event.gamma;
   y = event.beta;
 
-  const gravity = 2;
-  
-  accelerationX = gravity * Math.sin((x / 180)*Math.PI)
-  accelerationY = gravity * Math.sin((y / 180)*Math.PI)
-
-  console.log(accelerationX);
-  console.log(accelerationY);
+  accelerationX = GRAVITY * Math.sin((x / 180)*Math.PI)
+  accelerationY = GRAVITY * Math.sin((y / 180)*Math.PI)
 }
 
 const gameField = document.querySelector(".game-field");
 const ball = document.querySelector("#ball");
 const hole = document.querySelector(".hole");
+let  maxY, maxX;
 
+let holePosition = {
+  x: 0,
+  y: 0
+}
+
+let ballPosition = {
+  x: 0,
+  y: 0
+}
 
 function setUpTheField() {
-
   ball.style.display = "block";
   hole.style.display = "block";
   btn.style.display = "none";
 
+  // gameField bounds
+
   maxX = gameField.clientWidth - ball.clientWidth;
   maxY = gameField.clientHeight - ball.clientHeight;
-  console.log(`max x: ${maxX}, max y: ${maxY}`);
+
+  // initial ball positioning
 
   ball.style.left = `${gameField.clientWidth / 2 - 25}px`;
   ball.style.top = `${gameField.clientHeight / 2 - 25}px`;
 
-  hole.style.left = `${randomCoordinate(maxX - 70)}px`;
-  hole.style.top = `${randomCoordinate(maxY - 70)}px`;
+  // initial hole positioning
 
-  x = 0;
-  y = 0;
+  holePosition.x = randomCoordinate(maxX - 70);
+  holePosition.y = randomCoordinate(maxY - 70);
+
+  hole.style.left = `${holePosition.x}px`;
+  hole.style.top = `${holePosition.y}px`;
 }
+
+// random position of a hole
 
 function randomCoordinate(max) {
   return Math.floor(Math.random() * (max + 1));
 }
 
+// moving the ball
+
+function moveTheBall() {
+  ballPosition.x = ball.style.left.slice(0, -2);
+  ballPosition.y = ball.style.top.slice(0, -2);
+  
+  if (x < 0) ballPosition.x = parseFloat(ballPosition.x) + accelerationX;
+  if (y < 0) ballPosition.y = parseFloat(ballPosition.y) + accelerationY;
+
+  if (x > 0) ballPosition.x = parseFloat(ballPosition.x) + accelerationX;
+  if (y > 0) ballPosition.y = parseFloat(ballPosition.y) + accelerationY;
+
+  console.log(ballPosition.x);
+  if(ballPosition.x>0 && ballPosition.x<maxX)
+    ball.style.left = `${ballPosition.x}px`;
+  if(ballPosition.y>0 && ballPosition.y<maxY)
+    ball.style.top = `${ballPosition.y}px`;
+}
+
+// main updating function
+
 let lastTime;
 
-function update(time) {
+function main(time) {
   if (lastTime != null) {
     moveTheBall();
+  
+    console.log(ballPosition);
   }
 
   lastTime = time;
-  window.requestAnimationFrame(update);
+  window.requestAnimationFrame(main);
 }
 
-window.requestAnimationFrame(update);
+function startGame(e){
+  window.requestAnimationFrame(main);
+  seconds = GAME_TIME;
+
+  countDown();
+  setUpTheField();
+  setTimeout(stopGame, GAME_TIME); 
+}
+
+function stopGame(){
+  ball.style.display = "none";
+  hole.style.display = "none";
+  btn.style.display = "block";
 
 
+}
 
-function moveTheBall() {
-  let ballX = ball.style.left.slice(0, -2);
-  let ballY = ball.style.top.slice(0, -2);
+// game timer
 
-  
-  if (x < 0) ballX = parseFloat(ballX) + accelerationX;
-  if (y < 0) ballY = parseFloat(ballY) + accelerationY;
+var seconds,time;
+function countDown() {
+   if(seconds == GAME_TIME)
+     timer = setInterval(countDown, 1000)
+   seconds -= 1000;
 
-  if (x > 0) ballX = parseFloat(ballX) + accelerationX;
-  if (y > 0) ballY = parseFloat(ballY) + accelerationY;
+   if(seconds < 10000)
+     document.getElementById("timer").innerHTML = '00:0' + seconds/1000;
+   else
+     document.getElementById("timer").innerHTML = '00:' + seconds/1000;
 
-  console.log(ballX);
-  if(ballX>0 && ballX<maxX)
-    ball.style.left = `${ballX}px`;
-  if(ballY>0 && ballY<maxY)
-    ball.style.top = `${ballY}px`;
-
-
+   if (seconds <= 0) 
+       clearInterval(timer);
 }
