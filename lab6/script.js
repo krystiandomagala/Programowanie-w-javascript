@@ -28,8 +28,8 @@ let maxX, maxY;
 function onDeviceMove(event) {
   console.log(`(x: ${event.gamma}, y: ${event.beta})`);
 
-  x = event.gamma;
-  y = event.beta;
+  x = Math.round(event.gamma);
+  y = Math.round(event.beta);
 }
 
 const gameField = document.querySelector(".game-field");
