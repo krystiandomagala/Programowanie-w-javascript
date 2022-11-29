@@ -1,5 +1,5 @@
 const GAME_TIME = 60000;
-const GRAVITY = 8;
+const GRAVITY = 15;
 
 // requesting mobile user
 
@@ -109,10 +109,21 @@ function moveTheBall() {
   if (x > initialX) ballPosition.x = parseFloat(ballPosition.x) + accelerationX;
   if (y > initialY) ballPosition.y = parseFloat(ballPosition.y) + accelerationY;
 
-  if (ballPosition.x > 0 && ballPosition.x < maxX)
+  if (ballPosition.x >= 0 && ballPosition.x <= maxX)
     ball.style.left = `${ballPosition.x}px`;
-  if (ballPosition.y > 0 && ballPosition.y < maxY)
+  if (ballPosition.y >= 0 && ballPosition.y <= maxY)
     ball.style.top = `${ballPosition.y}px`;
+
+    
+    if(ballPosition.x < 0)
+      ball.style.left = `0px`;
+    if(ballPosition.x > maxX)
+      ball.style.left = `${maxX}px`;
+
+    if(ballPosition.y < 0)
+      ball.style.top = `0px`;
+    if(ballPosition.y > maxY)
+      ball.style.top = `${maxY}px`;
 }
 
 // main updating function
