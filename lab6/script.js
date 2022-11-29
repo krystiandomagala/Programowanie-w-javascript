@@ -24,21 +24,21 @@ function getPermission() {
 
 let x, y;
 let maxX, maxY;
+let accelerationX, accelerationY;
 
 function onDeviceMove(event) {
   console.log(`(x: ${event.gamma}, y: ${event.beta})`);
 
-  x = Math.round(event.gamma);
-  y = Math.round(event.beta);
+  x = event.gamma;
+  y = event.beta;
 
-  if (x > 90) {
-    x = 90;
-  }
-  if (x < -90) {
-    x = -90;
-  }
-  x += 90;
-  y += 90;
+  const gravity = 2;
+  
+  accelerationX = gravity * Math.sin((x / 180)*Math.PI)
+  accelerationY = gravity * Math.sin((y / 180)*Math.PI)
+
+  console.log(accelerationX);
+  console.log(accelerationY);
 }
 
 const gameField = document.querySelector(".game-field");
@@ -83,20 +83,24 @@ function update(time) {
 
 window.requestAnimationFrame(update);
 
+
+
 function moveTheBall() {
   let ballX = ball.style.left.slice(0, -2);
   let ballY = ball.style.top.slice(0, -2);
 
-  if (x < 0) ballX--;
-  if (y < 0) ballY--;
+  
+  if (x < 0) ballX = parseFloat(ballX) + accelerationX;
+  if (y < 0) ballY = parseFloat(ballY) + accelerationY;
 
-  if (x > 0) ballX++;
-  if (y > 0) ballY++;
+  if (x > 0) ballX = parseFloat(ballX) + accelerationX;
+  if (y > 0) ballY = parseFloat(ballY) + accelerationY;
 
+  console.log(ballX);
   if(ballX>0 && ballX<maxX)
-    ball.style.left = `${(maxX * x) / 180 - 25 }px`;
+    ball.style.left = `${ballX}px`;
   if(ballY>0 && ballY<maxY)
-    ball.style.top = `${(maxY * y) / 180 - 25}px`;
+    ball.style.top = `${ballY}px`;
 
 
 }
