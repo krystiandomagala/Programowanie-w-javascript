@@ -1,4 +1,5 @@
 const GAME_TIME = 60000;
+const GRAVITY = 8;
 
 // requesting mobile user
 
@@ -11,8 +12,14 @@ function getPermission() {
     DeviceMotionEvent.requestPermission()
       .then((state) => {
         if (state === "granted") {
-          window.addEventListener("deviceorientation", onDeviceMove);
           startGame();
+          window.addEventListener("deviceorientation", setInitialPosition, false);
+  
+          setTimeout(function () {
+            window.removeEventListener("deviceorientation", setInitialPosition, false);
+            window.addEventListener("deviceorientation", onDeviceMove);
+          }, 100);
+        
         } else {
           console.error("Request to access the orientation was rejected");
         }
@@ -20,41 +27,45 @@ function getPermission() {
       .catch(console.error);
   } else {
     // Handle regular non iOS 13+ devices.
-    window.addEventListener("deviceorientation", onDeviceMove);
     startGame();
+    window.addEventListener("deviceorientation", onDeviceMove);
   }
+}
+
+// getting initial device position
+
+let initialX = 0, initialY = 0;
+function setInitialPosition(event) {
+  initialX = event.gamma;
+  initialY = event.beta;
 }
 
 // collecting device position
 // counting ball acceleration
 
 let x, y, accelerationX, accelerationY;
-const GRAVITY = 8;
 
 function onDeviceMove(event) {
-  console.log(`(x: ${event.gamma}, y: ${event.beta})`);
-
   x = event.gamma;
   y = event.beta;
-
-  accelerationX = GRAVITY * Math.sin((x / 180)*Math.PI)
-  accelerationY = GRAVITY * Math.sin((y / 180)*Math.PI)
+  accelerationX = GRAVITY * Math.sin((x / 180) * Math.PI);
+  accelerationY = GRAVITY * Math.sin((y / 180) * Math.PI);
 }
 
 const gameField = document.querySelector(".game-field");
 const ball = document.querySelector("#ball");
 const hole = document.querySelector(".hole");
-let  maxY, maxX;
+let maxY, maxX;
 
 let holePosition = {
   x: 0,
-  y: 0
-}
+  y: 0,
+};
 
 let ballPosition = {
   x: 0,
-  y: 0
-}
+  y: 0,
+};
 
 function setUpTheField() {
   ball.style.display = "block";
@@ -91,17 +102,16 @@ function randomCoordinate(max) {
 function moveTheBall() {
   ballPosition.x = ball.style.left.slice(0, -2);
   ballPosition.y = ball.style.top.slice(0, -2);
-  
+
   if (x < 0) ballPosition.x = parseFloat(ballPosition.x) + accelerationX;
   if (y < 0) ballPosition.y = parseFloat(ballPosition.y) + accelerationY;
 
   if (x > 0) ballPosition.x = parseFloat(ballPosition.x) + accelerationX;
   if (y > 0) ballPosition.y = parseFloat(ballPosition.y) + accelerationY;
 
-  console.log(ballPosition.x);
-  if(ballPosition.x>0 && ballPosition.x<maxX)
+  if (ballPosition.x > 0 && ballPosition.x < maxX)
     ball.style.left = `${ballPosition.x}px`;
-  if(ballPosition.y>0 && ballPosition.y<maxY)
+  if (ballPosition.y > 0 && ballPosition.y < maxY)
     ball.style.top = `${ballPosition.y}px`;
 }
 
@@ -112,44 +122,41 @@ let lastTime;
 function main(time) {
   if (lastTime != null) {
     moveTheBall();
-  
-    console.log(ballPosition);
   }
 
   lastTime = time;
   window.requestAnimationFrame(main);
 }
 
-function startGame(e){
+function startGame(e) {
+
   window.requestAnimationFrame(main);
   seconds = GAME_TIME;
 
+  console.log(initialX,initialY);
+
   countDown();
   setUpTheField();
-  setTimeout(stopGame, GAME_TIME); 
+  setTimeout(stopGame, GAME_TIME);
 }
 
-function stopGame(){
+function stopGame() {
   ball.style.display = "none";
   hole.style.display = "none";
   btn.style.display = "block";
-
-
 }
 
 // game timer
 
-var seconds,time;
+var seconds, time;
 function countDown() {
-   if(seconds == GAME_TIME)
-     timer = setInterval(countDown, 1000)
-   seconds -= 1000;
+  if (seconds == GAME_TIME) timer = setInterval(countDown, 1000);
+  seconds -= 1000;
 
-   if(seconds < 10000)
-     document.getElementById("timer").innerHTML = '00:0' + seconds/1000;
-   else
-     document.getElementById("timer").innerHTML = '00:' + seconds/1000;
+  if (seconds < 10000)
+    document.getElementById("timer").innerHTML = "00:0" + seconds / 1000;
+  else document.getElementById("timer").innerHTML = "00:" + seconds / 1000;
 
-   if (seconds <= 0) 
-       clearInterval(timer);
+  if (seconds <= 0) clearInterval(timer);
 }
+
