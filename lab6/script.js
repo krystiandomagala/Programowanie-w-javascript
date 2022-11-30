@@ -5,7 +5,6 @@ const GRAVITY = 15;
 
 const btn = document.getElementById("request");
 btn.addEventListener("click", getPermission);
-
 function getPermission() {
   if (typeof DeviceMotionEvent.requestPermission === "function") {
     // Handle iOS 13+ devices.
@@ -44,7 +43,6 @@ function setInitialPosition(event) {
 // counting ball acceleration
 
 let x, y, accelerationX, accelerationY;
-
 function onDeviceMove(event) {
   x = event.gamma;
   y = event.beta;
@@ -52,6 +50,8 @@ function onDeviceMove(event) {
   accelerationY = GRAVITY * Math.sin((y / 180) * Math.PI);
 }
 
+const scoreBorad = document.querySelector("#score");
+const highscoreBorad = document.querySelector("#highscore");
 const gameField = document.querySelector(".game-field");
 const ball = document.querySelector("#ball");
 const hole = document.querySelector(".hole");
@@ -60,13 +60,16 @@ let maxY, maxX;
 let holePosition = {
   x: 0,
   y: 0,
+  endX: function() { return this.x + 70 },
+  endY: function() { return this.y + 70 }
 };
 
 let ballPosition = {
   x: 0,
   y: 0,
+  endX: function() { return this.x + 50 },
+  endY: function() { return this.y + 50 }
 };
-
 function setUpTheField() {
   ball.style.display = "block";
   hole.style.display = "block";
@@ -76,11 +79,6 @@ function setUpTheField() {
 
   maxX = gameField.clientWidth - ball.clientWidth;
   maxY = gameField.clientHeight - ball.clientHeight;
-
-  // initial ball positioning
-
-  ball.style.left = `${gameField.clientWidth / 2 - 25}px`;
-  ball.style.top = `${gameField.clientHeight / 2 - 25}px`;
 
   // initial hole positioning
 
@@ -116,33 +114,56 @@ function moveTheBall() {
 
     
     if(ballPosition.x < 0)
-      ball.style.left = `0px`;
+      ballPosition.x = 0;
     if(ballPosition.x > maxX)
-      ball.style.left = `${maxX}px`;
+      ballPosition.x = maxX;
+
+    ball.style.left = `${ballPosition.x}px`;
 
     if(ballPosition.y < 0)
-      ball.style.top = `0px`;
+      ballPosition.y = 0;
     if(ballPosition.y > maxY)
-      ball.style.top = `${maxY}px`;
+    ballPosition.y = maxY;
+
+    ball.style.top = `${ballPosition.y}px`;
 }
 
 // main updating function
 
 let lastTime;
-
 function main(time) {
   if (lastTime != null) {
     moveTheBall();
+    if(detectIfScored())
+    {
+      score++;
+      scoreBorad.innerHTML = score;
+      setUpTheField();
+    }
   }
 
   lastTime = time;
   window.requestAnimationFrame(main);
 }
 
-function startGame(e) {
+
+let score, 
+highscore = localStorage.getItem("highscore");
+function startGame() {
 
   window.requestAnimationFrame(main);
+  
+  ballPosition.x = gameField.clientWidth / 2 - 25;
+  ballPosition.y = gameField.clientHeight / 2 - 25;
+
+  ball.style.left = `${ballPosition.x}px`;
+  ball.style.top = `${ballPosition.y}px`;
+
   seconds = GAME_TIME;
+  score = 0;
+
+  scoreBorad.innerHTML = score;
+  highscoreBorad.innerHTML = highscore;
 
   console.log(initialX,initialY);
 
@@ -155,6 +176,16 @@ function stopGame() {
   ball.style.display = "none";
   hole.style.display = "none";
   btn.style.display = "block";
+
+  highscoreBorad.innerHTML = highscore;
+
+  if(score>highscore)
+  {
+    window.alert("NEW HIGHSCORE!")
+    window.localStorage.setItem("highscore", JSON.stringify(score));  
+
+  }   
+
 }
 
 // game timer
@@ -171,3 +202,12 @@ function countDown() {
   if (seconds <= 0) clearInterval(timer);
 }
 
+// score detection
+
+function detectIfScored(){
+  if(ballPosition.x > holePosition.x && ballPosition.endX() < holePosition.endX())
+    if(ballPosition.y > holePosition.y && ballPosition.endY() < holePosition.endY())
+      return true;
+
+    return false;
+}
