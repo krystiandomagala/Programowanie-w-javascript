@@ -225,10 +225,23 @@ function changeColorTheme(){
   let ball = window.getComputedStyle(root).getPropertyValue("--ball");
   let hole = window.getComputedStyle(root).getPropertyValue("--hole");
 
+  if(score == 0){
+    root.style.setProperty("--bg", '#121212');
+    root.style.setProperty("--hole", '#fff');
+    root.style.setProperty("--ball", '#0f0');
+  }
+
   if(score == 20)
   {
     root.style.setProperty("--bg", '#fff');
     root.style.setProperty("--hole", '#f0f');
     root.style.setProperty("--ball", '#00f');
+  }
+
+  if(score == 20)
+  {
+    root.style.setProperty("--bg", '#f00');
+    root.style.setProperty("--hole", '#fff');
+    root.style.setProperty("--ball", 'yellow');
   }
 }
