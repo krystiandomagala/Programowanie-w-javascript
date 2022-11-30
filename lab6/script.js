@@ -50,6 +50,9 @@ function onDeviceMove(event) {
   accelerationY = GRAVITY * Math.sin((y / 180) * Math.PI);
 }
 
+const highScoreCommunicate = document.querySelector("#highscore-communicate");
+const timerBoard =  document.querySelector("#timer");
+const timerContainer =  document.querySelector("#timer-container");
 const scoreBorad = document.querySelector("#score");
 const highscoreBorad = document.querySelector("#highscore");
 const gameField = document.querySelector(".game-field");
@@ -146,22 +149,21 @@ function main(time) {
   window.requestAnimationFrame(main);
 }
 
-
 let score, 
-highscore = localStorage.getItem("highscore");
+highscore = localStorage.getItem("highscore") == undefined ? 0 : localStorage.getItem("highscore");
+highscoreBorad.innerHTML = highscore;
+
 function startGame() {
 
   window.requestAnimationFrame(main);
   
   ballPosition.x = gameField.clientWidth / 2 - 25;
   ballPosition.y = gameField.clientHeight / 2 - 25;
-
   ball.style.left = `${ballPosition.x}px`;
   ball.style.top = `${ballPosition.y}px`;
-
   seconds = GAME_TIME;
   score = 0;
-
+  highScoreCommunicate.style.display = "none";
   scoreBorad.innerHTML = score;
   highscoreBorad.innerHTML = highscore;
 
@@ -176,16 +178,16 @@ function stopGame() {
   ball.style.display = "none";
   hole.style.display = "none";
   btn.style.display = "block";
-
-  highscoreBorad.innerHTML = highscore;
+  timerContainer.classList.remove("time-running-out")
 
   if(score>highscore)
   {
-    window.alert("NEW HIGHSCORE!")
     window.localStorage.setItem("highscore", JSON.stringify(score));  
-
+    highScoreCommunicate.style.display = "block";
+    highscore = localStorage.getItem("highscore");
   }   
 
+  highscoreBorad.innerHTML = highscore;
 }
 
 // game timer
@@ -194,9 +196,12 @@ var seconds, time;
 function countDown() {
   if (seconds == GAME_TIME) timer = setInterval(countDown, 1000);
   seconds -= 1000;
+  if(seconds == 10000)
+    timerContainer.classList.add("time-running-out")
 
-  if (seconds < 10000)
-    document.getElementById("timer").innerHTML = "00:0" + seconds / 1000;
+  if (seconds < 10000){
+    timerBoard.innerHTML = "00:0" + seconds / 1000;
+  }
   else document.getElementById("timer").innerHTML = "00:" + seconds / 1000;
 
   if (seconds <= 0) clearInterval(timer);
