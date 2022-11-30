@@ -44,8 +44,8 @@ function setInitialPosition(event) {
 
 let x, y, accelerationX, accelerationY;
 function onDeviceMove(event) {
-  x = event.gamma;
-  y = event.beta;
+  x = event.gamma - initialX;
+  y = event.beta - initialX;
   accelerationX = GRAVITY * Math.sin((x / 180) * Math.PI);
   accelerationY = GRAVITY * Math.sin((y / 180) * Math.PI);
 }
@@ -189,6 +189,7 @@ function stopGame() {
     highscore = localStorage.getItem("highscore");
   }   
 
+  window.removeEventListener("deviceorientation", onDeviceMove, false);
   highscoreBorad.innerHTML = highscore;
 }
 
