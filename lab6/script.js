@@ -238,7 +238,7 @@ function changeColorTheme(){
     root.style.setProperty("--ball", '#00f');
   }
 
-  if(score == 20)
+  if(score == 50)
   {
     root.style.setProperty("--bg", '#f00');
     root.style.setProperty("--hole", '#fff');
