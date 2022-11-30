@@ -12,13 +12,20 @@ function getPermission() {
       .then((state) => {
         if (state === "granted") {
           startGame();
-          window.addEventListener("deviceorientation", setInitialPosition, false);
-  
+          window.addEventListener(
+            "deviceorientation",
+            setInitialPosition,
+            false
+          );
+
           setTimeout(function () {
-            window.removeEventListener("deviceorientation", setInitialPosition, false);
+            window.removeEventListener(
+              "deviceorientation",
+              setInitialPosition,
+              false
+            );
             window.addEventListener("deviceorientation", onDeviceMove);
           }, 100);
-        
         } else {
           console.error("Request to access the orientation was rejected");
         }
@@ -33,7 +40,8 @@ function getPermission() {
 
 // getting initial device position
 
-let initialX = 0, initialY = 0;
+let initialX = 0,
+  initialY = 0;
 function setInitialPosition(event) {
   initialX = event.gamma;
   initialY = event.beta;
@@ -51,8 +59,8 @@ function onDeviceMove(event) {
 }
 
 const highScoreCommunicate = document.querySelector("#highscore-communicate");
-const timerBoard =  document.querySelector("#timer");
-const timerContainer =  document.querySelector("#timer-container");
+const timerBoard = document.querySelector("#timer");
+const timerContainer = document.querySelector("#timer-container");
 const scoreBorad = document.querySelector("#score");
 const highscoreBorad = document.querySelector("#highscore");
 const gameField = document.querySelector(".game-field");
@@ -63,15 +71,23 @@ let maxY, maxX;
 let holePosition = {
   x: 0,
   y: 0,
-  endX: function() { return this.x + 70 },
-  endY: function() { return this.y + 70 }
+  endX: function () {
+    return this.x + 70;
+  },
+  endY: function () {
+    return this.y + 70;
+  },
 };
 
 let ballPosition = {
   x: 0,
   y: 0,
-  endX: function() { return this.x + 50 },
-  endY: function() { return this.y + 50 }
+  endX: function () {
+    return this.x + 50;
+  },
+  endY: function () {
+    return this.y + 50;
+  },
 };
 function setUpTheField() {
   ball.style.display = "block";
@@ -115,20 +131,15 @@ function moveTheBall() {
   if (ballPosition.y >= 0 && ballPosition.y <= maxY)
     ball.style.top = `${ballPosition.y}px`;
 
-    
-    if(ballPosition.x < 0)
-      ballPosition.x = 0;
-    if(ballPosition.x > maxX)
-      ballPosition.x = maxX;
+  if (ballPosition.x < 0) ballPosition.x = 0;
+  if (ballPosition.x > maxX) ballPosition.x = maxX;
 
-    ball.style.left = `${ballPosition.x}px`;
+  ball.style.left = `${ballPosition.x}px`;
 
-    if(ballPosition.y < 0)
-      ballPosition.y = 0;
-    if(ballPosition.y > maxY)
-    ballPosition.y = maxY;
+  if (ballPosition.y < 0) ballPosition.y = 0;
+  if (ballPosition.y > maxY) ballPosition.y = maxY;
 
-    ball.style.top = `${ballPosition.y}px`;
+  ball.style.top = `${ballPosition.y}px`;
 }
 
 // main updating function
@@ -136,14 +147,16 @@ function moveTheBall() {
 let lastTime;
 function main(time) {
   if (lastTime != null) {
-    moveTheBall();
-    if(detectIfScored())
-    {
-      score++;
-      scoreBorad.innerHTML = score;
+    if (isStarted) {
+      moveTheBall();
+      if (detectIfScored()) {
+        score++;
+        scoreBorad.innerHTML = score;
+
+        setUpTheField();
+      }
 
       changeColorTheme();
-      setUpTheField();
     }
   }
 
@@ -151,14 +164,18 @@ function main(time) {
   window.requestAnimationFrame(main);
 }
 
-let score, 
-highscore = localStorage.getItem("highscore") == undefined ? 0 : localStorage.getItem("highscore");
+let score,
+  highscore =
+    localStorage.getItem("highscore") == undefined
+      ? 0
+      : localStorage.getItem("highscore");
 highscoreBorad.innerHTML = highscore;
 
 function startGame() {
+  isStarted = true;
 
   window.requestAnimationFrame(main);
-  
+
   ballPosition.x = gameField.clientWidth / 2 - 25;
   ballPosition.y = gameField.clientHeight / 2 - 25;
   ball.style.left = `${ballPosition.x}px`;
@@ -169,25 +186,28 @@ function startGame() {
   scoreBorad.innerHTML = score;
   highscoreBorad.innerHTML = highscore;
 
-  console.log(initialX,initialY);
+  console.log(initialX, initialY);
 
   countDown();
   setUpTheField();
   setTimeout(stopGame, GAME_TIME);
 }
 
+let isStarted;
+
 function stopGame() {
+  isStarted = false;
+
   ball.style.display = "none";
   hole.style.display = "none";
   btn.style.display = "block";
-  timerContainer.classList.remove("time-running-out")
+  timerContainer.classList.remove("time-running-out");
 
-  if(score>highscore)
-  {
-    window.localStorage.setItem("highscore", JSON.stringify(score));  
+  if (score > highscore) {
+    window.localStorage.setItem("highscore", JSON.stringify(score));
     highScoreCommunicate.style.display = "block";
     highscore = localStorage.getItem("highscore");
-  }   
+  }
 
   window.removeEventListener("deviceorientation", onDeviceMove, false);
   highscoreBorad.innerHTML = highscore;
@@ -199,50 +219,52 @@ var seconds, time;
 function countDown() {
   if (seconds == GAME_TIME) timer = setInterval(countDown, 1000);
   seconds -= 1000;
-  if(seconds == 10000)
-    timerContainer.classList.add("time-running-out")
+  if (seconds == 10000) timerContainer.classList.add("time-running-out");
 
-  if (seconds < 10000){
+  if (seconds < 10000) {
     timerBoard.innerHTML = "00:0" + seconds / 1000;
-  }
-  else document.getElementById("timer").innerHTML = "00:" + seconds / 1000;
+  } else document.getElementById("timer").innerHTML = "00:" + seconds / 1000;
 
   if (seconds <= 0) clearInterval(timer);
 }
 
 // score detection
 
-function detectIfScored(){
-  if(ballPosition.x > holePosition.x && ballPosition.endX() < holePosition.endX())
-    if(ballPosition.y > holePosition.y && ballPosition.endY() < holePosition.endY())
+function detectIfScored() {
+  if (
+    ballPosition.x > holePosition.x &&
+    ballPosition.endX() < holePosition.endX()
+  )
+    if (
+      ballPosition.y > holePosition.y &&
+      ballPosition.endY() < holePosition.endY()
+    )
       return true;
 
-    return false;
+  return false;
 }
 
-function changeColorTheme(){
+function changeColorTheme() {
   let root = document.querySelector(":root");
   let bg = window.getComputedStyle(root).getPropertyValue("--bg");
   let ball = window.getComputedStyle(root).getPropertyValue("--ball");
   let hole = window.getComputedStyle(root).getPropertyValue("--hole");
 
-  if(score == 0){
-    root.style.setProperty("--bg", '#121212');
-    root.style.setProperty("--hole", '#fff');
-    root.style.setProperty("--ball", '#0f0');
+  if (score == 0) {
+    root.style.setProperty("--bg", "#121212");
+    root.style.setProperty("--hole", "#fff");
+    root.style.setProperty("--ball", "#0f0");
   }
 
-  if(score == 20)
-  {
-    root.style.setProperty("--bg", '#fff');
-    root.style.setProperty("--hole", '#f0f');
-    root.style.setProperty("--ball", '#00f');
+  if (score == 20) {
+    root.style.setProperty("--bg", "#fff");
+    root.style.setProperty("--hole", "#f0f");
+    root.style.setProperty("--ball", "#00f");
   }
 
-  if(score == 50)
-  {
-    root.style.setProperty("--bg", '#f00');
-    root.style.setProperty("--hole", '#fff');
-    root.style.setProperty("--ball", 'yellow');
+  if (score == 50) {
+    root.style.setProperty("--bg", "#f00");
+    root.style.setProperty("--hole", "#fff");
+    root.style.setProperty("--ball", "yellow");
   }
 }
