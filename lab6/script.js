@@ -141,6 +141,8 @@ function main(time) {
     {
       score++;
       scoreBorad.innerHTML = score;
+
+      changeColorTheme();
       setUpTheField();
     }
   }
@@ -215,4 +217,18 @@ function detectIfScored(){
       return true;
 
     return false;
+}
+
+function changeColorTheme(){
+  let root = document.querySelector(":root");
+  let bg = window.getComputedStyle(root).getPropertyValue("--bg");
+  let ball = window.getComputedStyle(root).getPropertyValue("--ball");
+  let hole = window.getComputedStyle(root).getPropertyValue("--hole");
+
+  if(score == 20)
+  {
+    root.style.setProperty("--bg", '#fff');
+    root.style.setProperty("--hole", '#f0f');
+    root.style.setProperty("--ball", '#00f');
+  }
 }
