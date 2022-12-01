@@ -25,7 +25,7 @@ function getPermission() {
               false
             );
             window.addEventListener("deviceorientation", onDeviceMove);
-          }, 100);
+          }, 10);
         } else {
           console.error("Request to access the orientation was rejected");
         }
@@ -47,7 +47,7 @@ function getPermission() {
         false
       );
       window.addEventListener("deviceorientation", onDeviceMove);
-    }, 100);
+    }, 10);
     
   }
 }
