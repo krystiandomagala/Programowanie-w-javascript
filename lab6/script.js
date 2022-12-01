@@ -58,7 +58,7 @@ let initialX = 0, initialY = 0;
 
 function setInitialPosition(event) {
   initialX = event.gamma - initialX;
-  initialY = event.beta - initialX;
+  initialY = event.beta - initialY;
   console.log(initialX,initialY)
 }
 
