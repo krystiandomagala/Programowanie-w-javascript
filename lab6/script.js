@@ -1,8 +1,7 @@
 const GAME_TIME = 60000;
-const GRAVITY = 15;
+let GRAVITY = 15;
 
 // requesting mobile user
-let initialX = 0, initialY = 0;
 
 const btn = document.getElementById("request");
 btn.addEventListener("click", getPermission);
@@ -55,10 +54,11 @@ function getPermission() {
 
 // getting initial device position
 
+let initialX = 0, initialY = 0;
 
 function setInitialPosition(event) {
-  initialX = event.gamma - initialX;
-  initialY = event.beta - initialY;
+  initialX = event.gamma;
+  initialY = event.beta;
   console.log(initialX,initialY)
 }
 
@@ -67,8 +67,8 @@ function setInitialPosition(event) {
 
 let x, y, accelerationX, accelerationY;
 function onDeviceMove(event) {
-  x = event.gamma - initialX;
-  y = event.beta - initialX;
+  x = event.gamma;
+  y = event.beta;
   accelerationX = GRAVITY * Math.sin((x / 180) * Math.PI);
   accelerationY = GRAVITY * Math.sin((y / 180) * Math.PI);
 }
@@ -122,7 +122,6 @@ function setUpTheField() {
   hole.style.left = `${holePosition.x}px`;
   hole.style.top = `${holePosition.y}px`;
 }
-
 // random position of a hole
 
 function randomCoordinate(max) {
@@ -135,11 +134,10 @@ function moveTheBall() {
   ballPosition.x = ball.style.left.slice(0, -2);
   ballPosition.y = ball.style.top.slice(0, -2);
 
-  if (x < initialX) ballPosition.x = parseFloat(ballPosition.x) + accelerationX;
-  if (y < initialY) ballPosition.y = parseFloat(ballPosition.y) + accelerationY;
+  if (y < 0) ballPosition.y = parseFloat(ballPosition.y) + accelerationY;
 
-  if (x > initialX) ballPosition.x = parseFloat(ballPosition.x) + accelerationX;
-  if (y > initialY) ballPosition.y = parseFloat(ballPosition.y) + accelerationY;
+  if (x > 0) ballPosition.x = parseFloat(ballPosition.x) + accelerationX;
+  if (y > 0) ballPosition.y = parseFloat(ballPosition.y) + accelerationY;
 
   if (ballPosition.x >= 0 && ballPosition.x <= maxX)
     ball.style.left = `${ballPosition.x}px`;
@@ -174,27 +172,20 @@ function main(time) {
       changeColorTheme();
     }
   }
-
   lastTime = time;
   window.requestAnimationFrame(main);
 }
+window.requestAnimationFrame(main);
 
 let score,
-  highscore =
-    localStorage.getItem("highscore") === undefined
-      ? 0
-      : localStorage.getItem("highscore");
+highscore = localStorage.getItem("highscore") == undefined ? 0 : localStorage.getItem("highscore");
 highscoreBorad.innerHTML = highscore;
 
 function startGame() {
   isStarted = true;
 
-  x = 0, 
-  y = 0;
-  
-  console.log(x,y);
-
-  window.requestAnimationFrame(main);
+  ballPosition.x = 0, 
+  ballPosition.y = 0;
 
   ballPosition.x = gameField.clientWidth / 2 - 25;
   ballPosition.y = gameField.clientHeight / 2 - 25;
@@ -206,7 +197,6 @@ function startGame() {
   scoreBorad.innerHTML = score;
   highscoreBorad.innerHTML = highscore;
 
-  console.log(initialX, initialY);
 
   countDown();
   setUpTheField();
@@ -231,6 +221,8 @@ function stopGame() {
 
   window.removeEventListener("deviceorientation", onDeviceMove, false);
   highscoreBorad.innerHTML = highscore;
+
+  alert(`initial x: ${initialX} ${initialY}`);
 }
 
 // game timer
