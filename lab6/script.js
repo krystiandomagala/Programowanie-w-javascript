@@ -57,8 +57,8 @@ function getPermission() {
 let initialX = 0, initialY = 0;
 
 function setInitialPosition(event) {
-  initialX = event.gamma;
-  initialY = event.beta;
+  initialX = event.gamma - initialX;
+  initialY = event.beta - initialX;
   console.log(initialX,initialY)
 }
 
@@ -134,11 +134,11 @@ function moveTheBall() {
   ballPosition.x = ball.style.left.slice(0, -2);
   ballPosition.y = ball.style.top.slice(0, -2);
 
-  if (y < 0) ballPosition.y = parseFloat(ballPosition.y) + accelerationY;
-  if (x < 0) ballPosition.x = parseFloat(ballPosition.x) + accelerationX;
+  if (initialX < 0) ballPosition.x = parseFloat(ballPosition.x) + accelerationX;
+  if (initialY < 0) ballPosition.y = parseFloat(ballPosition.y) + accelerationY;
 
-  if (x > 0) ballPosition.x = parseFloat(ballPosition.x) + accelerationX;
-  if (y > 0) ballPosition.y = parseFloat(ballPosition.y) + accelerationY;
+  if (initialX > 0) ballPosition.x = parseFloat(ballPosition.x) + accelerationX;
+  if (initialY > 0) ballPosition.y = parseFloat(ballPosition.y) + accelerationY;
 
   if (ballPosition.x >= 0 && ballPosition.x <= maxX)
     ball.style.left = `${ballPosition.x}px`;
@@ -222,8 +222,6 @@ function stopGame() {
 
   window.removeEventListener("deviceorientation", onDeviceMove, false);
   highscoreBorad.innerHTML = highscore;
-
-  alert(`initial x: ${initialX} ${initialY}`);
 }
 
 // game timer
