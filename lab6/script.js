@@ -2,6 +2,7 @@ const GAME_TIME = 60000;
 const GRAVITY = 15;
 
 // requesting mobile user
+let initialX = 0, initialY = 0;
 
 const btn = document.getElementById("request");
 btn.addEventListener("click", getPermission);
@@ -25,7 +26,7 @@ function getPermission() {
               false
             );
             window.addEventListener("deviceorientation", onDeviceMove);
-          }, 100);
+          }, 200);
         } else {
           console.error("Request to access the orientation was rejected");
         }
@@ -34,17 +35,31 @@ function getPermission() {
   } else {
     // Handle regular non iOS 13+ devices.
     startGame();
-    window.addEventListener("deviceorientation", onDeviceMove);
+    window.addEventListener(
+      "deviceorientation",
+      setInitialPosition,
+      false
+    );
+
+    setTimeout(function () {
+      window.removeEventListener(
+        "deviceorientation",
+        setInitialPosition,
+        false
+      );
+      window.addEventListener("deviceorientation", onDeviceMove);
+    }, 200);
+    
   }
 }
 
 // getting initial device position
 
-let initialX = 0,
-  initialY = 0;
+
 function setInitialPosition(event) {
-  initialX = event.gamma;
-  initialY = event.beta;
+  initialX = event.gamma - initialX;
+  initialY = event.beta - initialY;
+  console.log(initialX,initialY)
 }
 
 // collecting device position
@@ -149,10 +164,10 @@ function main(time) {
   if (lastTime != null) {
     if (isStarted) {
       moveTheBall();
+
       if (detectIfScored()) {
         score++;
         scoreBorad.innerHTML = score;
-
         setUpTheField();
       }
 
@@ -166,7 +181,7 @@ function main(time) {
 
 let score,
   highscore =
-    localStorage.getItem("highscore") == undefined
+    localStorage.getItem("highscore") === undefined
       ? 0
       : localStorage.getItem("highscore");
 highscoreBorad.innerHTML = highscore;
@@ -174,6 +189,9 @@ highscoreBorad.innerHTML = highscore;
 function startGame() {
   isStarted = true;
 
+  x = initialX, 
+  y = initialY;
+  
   window.requestAnimationFrame(main);
 
   ballPosition.x = gameField.clientWidth / 2 - 25;
