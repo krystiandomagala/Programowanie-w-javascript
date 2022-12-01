@@ -60,9 +60,11 @@ body {
   z-index: 3;
 }
 
-#request:hover{
-  outline-color: var(--ball);
-  color: var(--ball);
+@media (hover: hover) {
+  #request:hover{
+    outline-color: var(--ball);
+    color: var(--ball);
+  }
 }
 
 .hole{
