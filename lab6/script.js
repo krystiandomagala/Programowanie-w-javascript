@@ -57,8 +57,8 @@ function getPermission() {
 let initialX = 0, initialY = 0;
 
 function setInitialPosition(event) {
-  initialX = event.gamma// - initialX//;
-  initialY = event.beta// - initialY;
+  initialX = event.gamma;
+  initialY = event.beta;
   console.log(initialX,initialY)
 }
 
@@ -67,8 +67,8 @@ function setInitialPosition(event) {
 
 let x, y, accelerationX, accelerationY;
 function onDeviceMove(event) {
-  x = event.gamma - initialX;
-  y = event.beta - initialY;
+  x = event.gamma// - initialX;
+  y = event.beta// - initialY;
   accelerationX = GRAVITY * Math.sin((x / 180) * Math.PI);
   accelerationY = GRAVITY * Math.sin((y / 180) * Math.PI);
 }
