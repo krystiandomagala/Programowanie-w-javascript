@@ -270,14 +270,20 @@ function changeColorTheme() {
   }
 
   if (score == 20) {
-    root.style.setProperty("--bg", "#fff");
-    root.style.setProperty("--hole", "#f0f");
-    root.style.setProperty("--ball", "#00f");
+    root.style.setProperty("--bg", "#00f");
+    root.style.setProperty("--hole", "#fff");
+    root.style.setProperty("--ball", "#f00");
   }
 
-  if (score == 50) {
+  if (score == 40) {
     root.style.setProperty("--bg", "#f00");
     root.style.setProperty("--hole", "#fff");
     root.style.setProperty("--ball", "yellow");
+  }
+
+  if (score == 60) {
+    root.style.setProperty("--bg", "#fff");
+    root.style.setProperty("--hole", "#f0f");
+    root.style.setProperty("--ball", "#00f");
   }
 }
