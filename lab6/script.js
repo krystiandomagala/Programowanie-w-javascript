@@ -67,8 +67,8 @@ function setInitialPosition(event) {
 
 let x, y, accelerationX, accelerationY;
 function onDeviceMove(event) {
-  x = event.gamma;
-  y = event.beta;
+  x = event.gamma - initialX;
+  y = event.beta - initialY;
   accelerationX = GRAVITY * Math.sin((x / 180) * Math.PI);
   accelerationY = GRAVITY * Math.sin((y / 180) * Math.PI);
 }
@@ -254,6 +254,8 @@ function detectIfScored() {
 
   return false;
 }
+
+// color changing
 
 function changeColorTheme() {
   let root = document.querySelector(":root");
