@@ -222,6 +222,7 @@ function stopGame() {
 
   window.removeEventListener("deviceorientation", onDeviceMove, false);
   highscoreBorad.innerHTML = highscore;
+  alert(`initx: ${initialX} inity: ${initialY}`)
 }
 
 // game timer
