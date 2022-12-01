@@ -135,6 +135,7 @@ function moveTheBall() {
   ballPosition.y = ball.style.top.slice(0, -2);
 
   if (y < 0) ballPosition.y = parseFloat(ballPosition.y) + accelerationY;
+  if (x < 0) ballPosition.x = parseFloat(ballPosition.x) + accelerationX;
 
   if (x > 0) ballPosition.x = parseFloat(ballPosition.x) + accelerationX;
   if (y > 0) ballPosition.y = parseFloat(ballPosition.y) + accelerationY;

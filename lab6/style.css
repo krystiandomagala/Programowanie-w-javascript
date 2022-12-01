@@ -88,7 +88,7 @@ body {
 
 .time-running-out{
   animation: time-running-out 10s 0.2s;
-  color:rgb(223, 73, 73);
+  color:rgb(255, 140, 140);
 }
 
 @keyframes highscore{
@@ -98,12 +98,12 @@ body {
 }
 
 @keyframes time-running-out{
-  0% { color: rgb(223, 73, 73) }
+  0% { color: rgb(255, 140, 140) }
   3% { color: transparent }
-  6% { color: rgb(223, 73, 73) }
+  6% { color: rgb(255, 140, 140) }
   9% { color: transparent }
-  12% { color: rgb(223, 73, 73) }
+  12% { color: rgb(255, 140, 140) }
   15% { color: transparent }
-  17% { color: rgb(223, 73, 73) }
-  100% { color: rgb(223, 73, 73) }
+  17% { color: rgb(255, 140, 140) }
+  100% { color: rgb(255, 140, 140) }
 }
