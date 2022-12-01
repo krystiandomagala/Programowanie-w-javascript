@@ -25,7 +25,7 @@ function getPermission() {
               false
             );
             window.addEventListener("deviceorientation", onDeviceMove);
-          }, 200);
+          }, 10);
         } else {
           console.error("Request to access the orientation was rejected");
         }
@@ -47,7 +47,7 @@ function getPermission() {
         false
       );
       window.addEventListener("deviceorientation", onDeviceMove);
-    }, 200);
+    }, 10);
     
   }
 }
@@ -185,6 +185,9 @@ highscoreBorad.innerHTML = highscore;
 function startGame() {
   isStarted = true;
 
+  initialX = 0;
+  initialY = 0;
+
   ballPosition.x = 0, 
   ballPosition.y = 0;
 
@@ -222,7 +225,6 @@ function stopGame() {
 
   window.removeEventListener("deviceorientation", onDeviceMove, false);
   highscoreBorad.innerHTML = highscore;
-  alert(`initx: ${initialX} inity: ${initialY}`)
 }
 
 // game timer
