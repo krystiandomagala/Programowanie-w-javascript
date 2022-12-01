@@ -189,9 +189,11 @@ highscoreBorad.innerHTML = highscore;
 function startGame() {
   isStarted = true;
 
-  x = initialX, 
-  y = initialY;
+  x = 0, 
+  y = 0;
   
+  console.log(x,y);
+
   window.requestAnimationFrame(main);
 
   ballPosition.x = gameField.clientWidth / 2 - 25;
