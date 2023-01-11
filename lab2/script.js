@@ -3,7 +3,6 @@
             constructor(elemSelector) {
                 this.sliderSelector = elemSelector;
                 this.currentSlide = 0; //aktualny slide
-                this.time = null; //tutaj będziemy podczepiać setTimeout
                 this.slider = null;
                 this.elem = null;
                 this.slides = null;
