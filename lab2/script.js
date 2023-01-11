@@ -15,19 +15,18 @@
             }
 
             generateSlider() {
-                //pobieramy element który zamienimy na slider-demo
                 this.slider = document.querySelector(this.sliderSelector);
                 this.slider.classList.add('slider');
 
-                //tworzymy kontener dla slajdow
+                // kontener dla slajdow
                 const slidesCnt = document.createElement('div');
                 slidesCnt.classList.add('slider-slides-cnt');
 
-                //pobieramy element slajdów
+                //pobieranie elementu slajdów
                 this.slides = this.slider.children;
 
-                //to jest zywa kolekcja, więc przy przeniesieniu kazdego slajda
-                //jej dlugosc maleje
+                // przy przeniesieniu kazdego slajdu
+                // dlugosc maleje
                 while (this.slides.length) {
                     this.slides[0].classList.add('slider-slide');
                     slidesCnt.appendChild(this.slides[0]);
@@ -61,15 +60,13 @@
                     slide.setAttribute('aria-hidden', true);
                 });
 
-                //dodajemy ją tylko wybranemu
                 this.slides[index].classList.add('slider-slide-active');
                 this.slides[index].setAttribute('aria-hidden', false);
 
-                //podobny manewr robimy dla kropek
                 this.dots.forEach(dot => dot.classList.remove('slider-pagination-element-active'));
                 this.dots[index].classList.add('slider-pagination-element-active');
 
-                //aktualny slide przestawiamy na wybrany
+                //aktualny slide  na wybrany
                 this.currentSlide = index;
             };
 
@@ -99,11 +96,10 @@
                 const ulDots = document.createElement('ul');
                 ulDots.classList.add('slider-pagination');
 
-                //tworzymy pętlę w ilości liczby slajdów
+                // pętla w ilości liczby slajdów
                 for (let i = 0; i < this.slides.length; i++) {
-                    //każdorazowo tworzymy LI wraz z buttonem
+                    // LI wraz z buttonem
                     //każdy button po kliknięciu zmieni slajd
-                    //za pomocą metody changeSlide()
 
                     const li = document.createElement('li');
                     li.classList.add('slider-pagination-element');
